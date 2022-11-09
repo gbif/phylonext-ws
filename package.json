@@ -1,0 +1,20 @@
+{
+  "name": "phylonext-ws",
+  "version": "0.0.1",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "composable-middleware": "^0.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.0",
+    "express-request-id": "^1.4.0",
+    "js-base64": "^2.4.3",
+    "jsonwebtoken": "^7.4.0",
+    "linereader": "^1.1.0",
+    "lodash": "^4.17.19",
+    "lowdb": "^1.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.6"
+  }
+}
