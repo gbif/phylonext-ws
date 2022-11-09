@@ -1,3 +1,313 @@
 {
-  "runs": []
+  "runs": [
+    {
+      "username": "thomasgbif",
+      "run": "de345546-11a4-4daf-908c-3773dfef39c2",
+      "started": "2022-10-04T09:56:31.048Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "cbd4aa3f-f053-48b0-a368-2b24f78b4abd",
+      "started": "2022-11-04T08:56:31.048Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "ea5aed25-c563-4126-9758-0fcd97777830",
+      "started": "2022-11-04T09:56:31.048Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "a690ff8c-1536-46c1-ae63-154715d88c7a",
+      "started": "2022-11-04T12:35:16.257Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "310ad316-d71c-40e1-865e-070a8d2bf27f",
+      "started": "2022-11-04T15:18:35.151Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "04e87b45-86b2-4d13-96a9-e06c64094984",
+      "started": "2022-11-04T15:27:09.794Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "8ad3a7c1-4199-4b63-b73d-a30bcab6757e",
+      "started": "2022-11-04T15:31:09.273Z"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "dd77f061-d717-435c-a4f1-18779508b412",
+      "started": "2022-11-04T15:40:51.542Z",
+      "taxgroup": "'Land plants'",
+      "prepared_phytree": "Fabaceae_Australian.nwk",
+      "family": "Fabaceae",
+      "minyear": 2010,
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "latmin": -28.92163128242129,
+      "latmax": -21.94304553343818,
+      "lonmin": 125.93695125783255,
+      "lonmax": 135.7768802794772,
+      "phytree": "/Users/thomas/phylonext-ws/runs/dd77f061-d717-435c-a4f1-18779508b412/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "9dbe6881-e7ef-4f2f-a66d-5d837c7207c8",
+      "started": "2022-11-07T08:55:20.987Z",
+      "phylabels": "Latin",
+      "phytree": "/Users/thomas/phylonext-ws/runs/9dbe6881-e7ef-4f2f-a66d-5d837c7207c8/output/input_tree.nwk",
+      "family": "Fabaceae",
+      "country": [
+        "AU"
+      ],
+      "minyear": 2010,
+      "h3resolution": "1",
+      "randname": "rand_structured"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "33401dc8-5d4e-4709-9ff9-c64bccc198d5",
+      "started": "2022-11-07T12:57:48.050Z",
+      "prepared_phytree": "Fabaceae_Australian.nwk",
+      "family": "Fabaceae",
+      "minyear": 2010,
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "latmin": -36.088171780484615,
+      "latmax": -26.17910183139952,
+      "lonmin": 110.33179332673942,
+      "lonmax": 124.74236520812259,
+      "phytree": "/Users/thomas/phylonext-ws/runs/33401dc8-5d4e-4709-9ff9-c64bccc198d5/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "37fdc7b0-eb4a-462c-8abb-60d6dd202a2a",
+      "started": "2022-11-07T15:16:30.426Z",
+      "taxgroup": "'Land plants'",
+      "prepared_phytree": "Fabaceae_Australian.nwk",
+      "phylum": [],
+      "order": [],
+      "family": [
+        "Fabaceae",
+        "Agaraceae"
+      ],
+      "minyear": 2010,
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "latmin": -34.88593094075316,
+      "latmax": -25.79989118208832,
+      "lonmin": 107.94504561551209,
+      "lonmax": 119.89209032345215,
+      "phytree": "/Users/thomas/phylonext-ws/runs/37fdc7b0-eb4a-462c-8abb-60d6dd202a2a/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "d9dfc8e2-75f1-43e5-94d5-56eb9b8a1f67",
+      "started": "2022-11-07T15:22:02.148Z",
+      "prepared_phytree": "Mammals.nwk",
+      "phylum": [],
+      "order": [],
+      "family": [
+        "Felidae",
+        "Canidae"
+      ],
+      "country": [
+        "DE"
+      ],
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "phytree": "/Users/thomas/phylonext-ws/runs/d9dfc8e2-75f1-43e5-94d5-56eb9b8a1f67/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "f7e78e15-e768-41b8-a40f-c6045f733b12",
+      "started": "2022-11-07T15:24:10.834Z",
+      "prepared_phytree": "Mammals.nwk",
+      "phylum": [],
+      "order": [],
+      "family": [
+        "Felidae"
+      ],
+      "country": [
+        "DE"
+      ],
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "phytree": "/Users/thomas/phylonext-ws/runs/f7e78e15-e768-41b8-a40f-c6045f733b12/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "f073cf24-8984-4458-8cc6-17e32b1c35b5",
+      "started": "2022-11-07T15:28:28.815Z",
+      "prepared_phytree": "Mammals.nwk",
+      "phylum": [],
+      "classis": [
+        "Mammalia"
+      ],
+      "order": [],
+      "family": [
+        "Felidae"
+      ],
+      "country": [
+        "DE",
+        "PL"
+      ],
+      "h3resolution": "4",
+      "randname": "rand_structured",
+      "phytree": "/Users/thomas/phylonext-ws/runs/f073cf24-8984-4458-8cc6-17e32b1c35b5/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "8fa43d36-d589-4b51-8752-994022796012",
+      "started": "2022-11-07T15:39:31.648Z",
+      "taxgroup": "Animals",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"PL,CZ,DE\"",
+      "phytree": "/Users/thomas/phylonext-ws/runs/8fa43d36-d589-4b51-8752-994022796012/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "03adaf2f-6496-4c67-8706-d3999db9d224",
+      "started": "2022-11-07T15:49:54.263Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae\"",
+      "country": "\"DE\"",
+      "phytree": "/Users/thomas/phylonext-ws/runs/03adaf2f-6496-4c67-8706-d3999db9d224/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "80e614a4-17ea-4fd5-9658-05515e961567",
+      "started": "2022-11-08T08:50:38.961Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE\"",
+      "phytree": "/Users/thomas/phylonext-ws/runs/80e614a4-17ea-4fd5-9658-05515e961567/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "f3634062-64df-4010-a6ca-a06a27f1b012",
+      "started": "2022-11-08T08:56:21.428Z",
+      "taxgroup": "Animals",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE\"",
+      "phytree": "/Users/thomas/phylonext-ws/runs/f3634062-64df-4010-a6ca-a06a27f1b012/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "22777b70-c6f4-4c25-ad05-71b813774257",
+      "started": "2022-11-08T15:01:27.026Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae\"",
+      "country": "\"DE,CZ\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/22777b70-c6f4-4c25-ad05-71b813774257/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "cf0ace3c-7125-4189-99b4-5836530d1fdd",
+      "started": "2022-11-08T15:06:06.451Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": 2,
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/cf0ace3c-7125-4189-99b4-5836530d1fdd/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "cd097276-5d9e-4dac-ba1d-80082e38d757",
+      "started": "2022-11-08T15:14:55.227Z",
+      "prepared_phytree": "Fabaceae_Australian.nwk",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,CZ,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runscd097276-5d9e-4dac-ba1d-80082e38d757/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "b64440f2-8c59-40ee-a5fd-c28a454e405f",
+      "started": "2022-11-08T15:18:03.717Z",
+      "prepared_phytree": "Mammals.nwk",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,CZ\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/b64440f2-8c59-40ee-a5fd-c28a454e405f/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "42f55dc1-9a15-4eac-adf0-35fd71b961d9",
+      "started": "2022-11-08T15:25:28.885Z",
+      "prepared_phytree": "Mammals.nwk",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,CZ,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/42f55dc1-9a15-4eac-adf0-35fd71b961d9/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "0eece563-4117-45ba-aaad-2cf10af17f22",
+      "started": "2022-11-09T13:34:28.881Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/0eece563-4117-45ba-aaad-2cf10af17f22/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "46870efc-b246-4e99-819a-3efacb3efea3",
+      "started": "2022-11-09T13:39:45.397Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/46870efc-b246-4e99-819a-3efacb3efea3/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "dfbc8735-a4c1-495b-8c47-2ba801cb4e95",
+      "started": "2022-11-09T13:42:16.812Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/dfbc8735-a4c1-495b-8c47-2ba801cb4e95/output/input_tree.nwk"
+    },
+    {
+      "username": "thomasgbif",
+      "run": "f73f4f71-4523-4285-a125-1743e76acd61",
+      "started": "2022-11-09T13:43:24.991Z",
+      "prepared_phytree": "Mammals.nwk",
+      "h3resolution": "3",
+      "randname": "rand_structured",
+      "classis": "\"Mammalia\"",
+      "family": "\"Felidae,Canidae\"",
+      "country": "\"DE,PL\"",
+      "phytree": "/Users/thomas/phylonext_data/runs/f73f4f71-4523-4285-a125-1743e76acd61/output/input_tree.nwk"
+    }
+  ]
 }
