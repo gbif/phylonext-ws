@@ -3,14 +3,18 @@
   "version": "0.0.1",
   "dependencies": {
     "async": "^2.6.0",
+    "axios": "^1.2.0",
     "body-parser": "^1.18.2",
     "composable-middleware": "^0.3.0",
     "cors": "^2.8.5",
+    "csv-parse": "^4.3.4",
     "express": "^4.16.3",
     "express-request-id": "^1.4.0",
+    "form-data": "^4.0.0",
     "lodash": "^4.17.19",
     "lowdb": "^1.0.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "stream-transform": "^1.0.8"
   }
 }

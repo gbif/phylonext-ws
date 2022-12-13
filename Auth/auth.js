@@ -17,14 +17,16 @@ function appendUser() {
             .then((user) => {
                 if (user) {
                     req.user = user;
+                    res.setHeader('token', user?.token);
                 } else {
                    // removeTokenCookie(res);
+                    res.removeHeader('token');
                     delete req.user;
                 }
+                
                 next();
             })
             .catch(function(err) {
-                console.log(err.statusCode)
                 res.sendStatus(err.statusCode)
                // next(err);
             });

@@ -32,14 +32,24 @@ const ALLOWED_PARAMS = [
   "dbscannoccurrences",
   "dbscanepsilon",
   "dbscanminpts",
-  "terrestrial",
   "wgsrpd",
   "regions",
   "indices",
   "randname",
   "iterations",
+  "terrestrial",
+  "rmcountrycentroids",
+  "rmcountrycapitals",
+  "rmurban"
 ];
 
+const FILE_MAPPINGS = {
+  terrestrial: "Land_Buffered_025_dgr.RData",
+  rmcountrycentroids: "CC_CountryCentroids_buf_1000m.RData",
+  rmcountrycapitals: "CC_Capitals_buf_10000m.RData",
+  rmurban: "CC_Urban.RData"
+}
+    
 const zipRun = (runid) => {
   return new Promise((resolve, reject) => {
     child_process.exec(
@@ -64,6 +74,12 @@ module.exports = (app) => {
       const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
       const workingDir = `${jobDir}/work`;
       const outputDir = `${jobDir}/output`;
+
+      const fileParams = Object.keys(FILE_MAPPINGS).reduce((acc, curr) => {
+        acc[curr] = _.get(req, `body.${curr}`) === true ? `${config.PIPELINE_DATA}/${FILE_MAPPINGS[curr]}` : false;
+        return acc;
+      }, {})
+
       try {
         await fs.promises.mkdir(jobDir);
         await fs.promises.mkdir(workingDir);
@@ -79,7 +95,7 @@ module.exports = (app) => {
             pushJob({
               username: req?.user?.userName,
               req_id: req.id,
-              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk` },
+              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
               res,
             });
           } catch (e) {
@@ -95,7 +111,7 @@ module.exports = (app) => {
             pushJob({
               username: req?.user?.userName,
               req_id: req.id,
-              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk` },
+              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
               phylabels: "OTT",
               res,
             });
@@ -108,7 +124,7 @@ module.exports = (app) => {
           pushJob({
             username: req?.user?.userName,
             req_id: req.id,
-            params: req.body,
+            params: {...req.body, ...fileParams},
             res,
           });
         }
@@ -156,7 +172,8 @@ module.exports = (app) => {
           if (err) {
             res.sendStatus(404);
           } else {
-            res.json({ completed: true });
+            const run = db.get("runs").find({ run: req.params.jobid }).value() || {};
+            res.json({...run, completed: true });
           }
         }
       );
@@ -211,7 +228,7 @@ module.exports = (app) => {
 
       ...profile,
     ];
-    // console.log(nextflowParams);
+    console.log(nextflowParams);
     try {
       let pcs = spawn(NEXTFLOW, nextflowParams, {
         stdio: ["pipe", "pipe", "pipe"],

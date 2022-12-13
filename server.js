@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
 require('./Auth/auth.controller')(app)
 require('./runs')(app)
 require('./results')(app)
+require('./citation')(app)
 
 http.listen(config.EXPRESS_PORT, function() {
     // console.log("Config "+config.INPUT_PATH )

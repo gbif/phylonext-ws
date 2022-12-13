@@ -42,7 +42,6 @@ module.exports = (app) => {
         `${config.OUTPUT_PATH}/${req.params.jobid}/output/pipeline_info`,
         function (err, fileList) {
           if (err) {
-            console.log(err);
             res.sendStatus(500);
           } else {
             const dot = fileList.find((file) => file.endsWith(".dot"));
@@ -67,7 +66,6 @@ module.exports = (app) => {
         `${config.OUTPUT_PATH}/${req.params.jobid}/output/pipeline_info/`,
         function (err, fileList) {
           if (err) {
-            console.log(err);
             res.sendStatus(500);
           } else {
             const html = fileList.find(
@@ -244,4 +242,6 @@ module.exports = (app) => {
       res.sendStatus(404);
     }
   });
+
+
 };

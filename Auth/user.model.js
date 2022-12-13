@@ -29,18 +29,21 @@ async function login(auth) {
 
 async function getFromToken(auth) {
     let options = {
-        method: 'GET',
-        url: `${config.GBIF_API}user/login`,
+        method: 'POST',
+        url: `${config.GBIF_REGISTRY_API}user/whoami`,
         headers: {
             authorization: auth
         },
+        resolveWithFullResponse: true,
         json: true
+        
     };
     try {
         let response = await request(options);
-        
-        return response;
+        return {...response?.body, token: response?.headers?.token || ''};
+
     } catch (error) {
+        console.log(error)
        // console.log(error)
         throw error;  
     }
