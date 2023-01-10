@@ -148,6 +148,7 @@ module.exports = (app) => {
             if(error?.response?.data && error?.response?.status){
                 res.status(error?.response?.status).send(error?.response?.data)
             } else {
+                console.log(error)
                 res.sendStatus(500);
             }
           
