@@ -31,8 +31,8 @@ const config = {
     PIPELINE_DATA: '/opt/phylonext/.nextflow/assets/vmikk/phylonext/pipeline_data', 
     EXPRESS_PORT: 9000,
     NEXTFLOW: '/opt/phylonext/nextflow', // where is the NextFlow executable
-    GBIF_API: 'https://api.gbif-uat.org/v1/',
-    GBIF_REGISTRY_API: 'https://registry-api.gbif-uat.org/',
+    GBIF_API: 'https://api.gbif.org/v1/',
+    GBIF_REGISTRY_API: 'https://registry-api.gbif.org/',
     CONCURRENT_RUNS_ALLOWED: 3,
     PERSISTANT_ACCESS_PATH: '/mnt/auto/misc/download.gbif.org/phylonext',
     PERSISTANT_ACCESS_URI: "http://download.gbif.org/phylonext/",
