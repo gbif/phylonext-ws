@@ -21,7 +21,8 @@ const config = {
     GBIF_REGISTRY_API: 'https://registry-api.gbif-uat.org/',
     CONCURRENT_RUNS_ALLOWED: 3,
     PERSISTANT_ACCESS_PATH: PERSISTANT_ACCESS_PATH, // Suggest some path like /mnt/auto/misc/download.gbif.org/phylonext/YYYY/MM/some-sort-of-key-or-uuid.zip
-    PERSISTANT_ACCESS_URI: "http://download.gbif.org/phylonext/"
+    PERSISTANT_ACCESS_URI: "http://download.gbif.org/phylonext/",
+    DB_LOCATION : '/Users/thomas/phylonext_data/db.json'
   },
   production: {
     INPUT_PATH: `/mnt/auto/scratch/mblissett/cloud-data/2023-01-01/occurrence.parquet`,  // path to the parquet data
@@ -34,7 +35,8 @@ const config = {
     GBIF_REGISTRY_API: 'https://registry-api.gbif-uat.org/',
     CONCURRENT_RUNS_ALLOWED: 3,
     PERSISTANT_ACCESS_PATH: '/mnt/auto/misc/download.gbif.org/phylonext',
-    PERSISTANT_ACCESS_URI: "http://download.gbif.org/phylonext/"
+    PERSISTANT_ACCESS_URI: "http://download.gbif.org/phylonext/",
+    DB_LOCATION : '/opt/phylonext/db.json'
   },
 };
 
