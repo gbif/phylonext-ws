@@ -68,6 +68,34 @@ const zipRun = (runid) => {
   });
 };
 
+const processStdout = (data) => {
+  const lines = data.reduce((acc, e) => [...acc, ...e.split("\n")], []);
+  const idx = lines.findIndex(e => e.startsWith("executor >"))
+  if(idx > -1){
+    const index = idx - 1;
+    let first = lines.slice(0, idx);
+    let rest = lines.slice(index);
+    let executor = "";
+    const process = new Map();
+    let resultLine = "\n";
+    rest.forEach((p) => {
+      if (p.startsWith("executor >")) {
+        executor = p;
+      } else if (p.indexOf("process > ") > -1 && !p.startsWith('Error')) {
+        let splitted = p.split(" process > ");
+        process.set(splitted[1].split(" ")[0], p);
+      } else if (p) {
+        resultLine += `${p}\n`;
+      }
+    });
+
+   return [...first.filter((l) => !!l && l !== "\n").map(l => `${l}\n`),  executor, ...process.values(), resultLine]
+
+  } else {
+    return data;
+  }
+};
+
 module.exports = (app) => {
   app.post("/phylonext", auth.appendUser(), async function (req, res) {
     try {
@@ -239,13 +267,13 @@ module.exports = (app) => {
           const prev = jobs.get(options.req_id);
           jobs.set(options.req_id, {
             ...prev,
-            stdout: [...prev.stdout, data.toString()],
+            stdout: processStdout([...prev.stdout, data.toString()]),
           });
         } else {
           jobs.set(options.req_id, { stdout: [data.toString()], stderr: [] });
         }
       });
-      pcs.stderr.on("data", function (data) {
+       pcs.stderr.on("data", function (data) {
         if (jobs.has(options.req_id)) {
           const prev = jobs.get(options.req_id);
           jobs.set(options.req_id, {
@@ -255,7 +283,7 @@ module.exports = (app) => {
         } else {
           jobs.set(options.req_id, { stderr: [data.toString()], stdout: [] });
         }
-      });
+      }); 
 
       pcs.on("error", function (e) {
         console.log("Error running job");
