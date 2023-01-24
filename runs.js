@@ -296,6 +296,7 @@ module.exports = (app) => {
   });
 
   let jobQueue = async.queue(function (options, callback) {
+    jobs.set(options.req_id, { stdout: [] });
     try {
       db.read();
       db.get("runs")
@@ -353,6 +354,7 @@ module.exports = (app) => {
           const prev = jobs.get(options.req_id);
           jobs.set(options.req_id, {
             ...prev,
+            processRef: pcs,
             stdout: processStdout([...prev.stdout, data.toString()]),
           });
         } else {
@@ -364,6 +366,7 @@ module.exports = (app) => {
           const prev = jobs.get(options.req_id);
           jobs.set(options.req_id, {
             ...prev,
+            processRef: pcs,
             stderr: [...prev.stderr, data.toString()],
           });
         } else {
