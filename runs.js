@@ -19,6 +19,7 @@ const ALLOWED_PARAMS = [
   "class",
   "order",
   "family",
+  "genus",
   "country",
   "latmin",
   "latmax",
@@ -40,7 +41,9 @@ const ALLOWED_PARAMS = [
   "terrestrial",
   "rmcountrycentroids",
   "rmcountrycapitals",
-  "rmurban"
+  "rmurban",
+  "basisofrecordinclude",
+  "basisofrecordexclude"
 ];
 
 const FILE_MAPPINGS = {
@@ -49,7 +52,7 @@ const FILE_MAPPINGS = {
   rmcountrycapitals: "CC_Capitals_buf_10000m.RData",
   rmurban: "CC_Urban.RData"
 }
-    
+
 const zipRun = (runid) => {
   return new Promise((resolve, reject) => {
     child_process.exec(
@@ -71,7 +74,7 @@ const zipRun = (runid) => {
 const processStdout = (data) => {
   const lines = data.reduce((acc, e) => [...acc, ...e.split("\n")], []);
   const idx = lines.findIndex(e => e.startsWith("executor >"))
-  if(idx > -1){
+  if (idx > -1) {
     const index = idx - 1;
     let first = lines.slice(0, idx);
     let rest = lines.slice(index);
@@ -89,14 +92,41 @@ const processStdout = (data) => {
       }
     });
 
-   return [...first.filter((l) => !!l && l !== "\n").map(l => `${l}\n`),  executor, ...process.values(), resultLine]
+    return [...first.filter((l) => !!l && l !== "\n").map(l => `${l}\n`), executor, ...process.values(), resultLine]
 
   } else {
     return data;
   }
 };
 
+const killJob = (jobId) => {
+  if (jobs.has(jobId)) {
+    console.log("Job found")
+    const job = jobs.get(jobId);
+    if (typeof job?.processRef?.kill === 'function') {
+      console.log("Sending SIGINT to process")
+      job?.processRef?.kill('SIGINT')
+    }
+  } else {
+    return "Not found"
+  }
+}
+
+const removeJobData = (jobId) => {
+  const jobDir = `${config.OUTPUT_PATH}/${jobId}`;
+  return fs.promises.rm(jobDir, { recursive: true, force: true })
+}
+
 module.exports = (app) => {
+  app.get("/phylonext/jobs/running", function (req, res) {
+    try {
+      const running = [...jobs.keys()];
+      res.json(running);
+    } catch (error) {
+      res.sendStatus(500);
+    }
+  });
+
   app.post("/phylonext", auth.appendUser(), async function (req, res) {
     try {
       const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
@@ -152,7 +182,7 @@ module.exports = (app) => {
           pushJob({
             username: req?.user?.userName,
             req_id: req.id,
-            params: {...req.body, ...fileParams},
+            params: { ...req.body, ...fileParams },
             res,
           });
         }
@@ -178,7 +208,7 @@ module.exports = (app) => {
         jobs.delete(options.req_id);
 
         zipRun(options.req_id)
-          .then(() => {})
+          .then(() => { })
           .catch((err) => {
             console.log(err);
           });
@@ -201,15 +231,71 @@ module.exports = (app) => {
             res.sendStatus(404);
           } else {
             const run = db.get("runs").find({ run: req.params.jobid }).value() || {};
-            res.json({...run, completed: true });
+            res.json({ ...run, completed: true });
           }
         }
       );
     }
   });
 
+  app.put("/phylonext/job/:jobid/abort", auth.appendUser(), function (req, res) {
+
+    try {
+      if (!req.params.jobid) {
+        // error
+        res.sendStatus(400);
+      } else if (jobs.has(req.params.jobid)) {
+        db.read();
+        const run = db.get("runs").filter({ username: req.user?.userName, run: req.params.jobid });
+        if (!run) {
+          res.sendStatus(404);
+        } else {
+          killJob(req.params.jobid)
+          jobs.delete(req.params.jobid)
+          //const data = jobs.get(req.params.jobid);
+          res.sendStatus(204);
+        }
+
+      } else {
+        res.sendStatus(500);
+      }
+    } catch (error) {
+
+    }
+  });
+
+  app.delete("/phylonext/job/:jobid", auth.appendUser(), async function (req, res) {
+    try {
+      if (!req.params.jobid) {
+        // error
+        res.sendStatus(400);
+      } else {
+
+        db.read();
+        const run = db.get("runs").filter({ username: req.user?.userName, run: req.params.jobid });
+        if (!run) {
+          res.sendStatus(404);
+        } else {
+          if (jobs.has(req.params.jobid)) {
+            killJob(req.params.jobid)
+            jobs.delete(req.params.jobid)
+
+          }
+          await removeJobData(req.params.jobid)
+          db.get("runs").remove({ username: req.user?.userName, run: req.params.jobid })
+            .write();
+
+          res.sendStatus(204);
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      res.sendStatus(500);
+    }
+
+  });
+
   let jobQueue = async.queue(function (options, callback) {
-    jobs.set(options.req_id, { stdout: [] });
     try {
       db.read();
       db.get("runs")
@@ -270,10 +356,10 @@ module.exports = (app) => {
             stdout: processStdout([...prev.stdout, data.toString()]),
           });
         } else {
-          jobs.set(options.req_id, { stdout: [data.toString()], stderr: [] });
+          jobs.set(options.req_id, { stdout: [data.toString()], stderr: [], processRef: pcs });
         }
       });
-       pcs.stderr.on("data", function (data) {
+      pcs.stderr.on("data", function (data) {
         if (jobs.has(options.req_id)) {
           const prev = jobs.get(options.req_id);
           jobs.set(options.req_id, {
@@ -281,9 +367,9 @@ module.exports = (app) => {
             stderr: [...prev.stderr, data.toString()],
           });
         } else {
-          jobs.set(options.req_id, { stderr: [data.toString()], stdout: [] });
+          jobs.set(options.req_id, { stderr: [data.toString()], stdout: [], processRef: pcs });
         }
-      }); 
+      });
 
       pcs.on("error", function (e) {
         console.log("Error running job");
