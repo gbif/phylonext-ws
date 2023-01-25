@@ -198,7 +198,7 @@ module.exports = (app) => {
       if (err) {
         res.sendStatus(404);
       } else {
-        const trees = fileList.filter((file) => file.endsWith(".nwk"));
+        const trees = fileList.filter((file) => file.endsWith(".nwk") || file.endsWith(".tre") );
         if (trees) {
           try {
             res.json(trees);

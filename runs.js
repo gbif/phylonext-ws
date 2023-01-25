@@ -296,7 +296,7 @@ module.exports = (app) => {
   });
 
   let jobQueue = async.queue(function (options, callback) {
-    jobs.set(options.req_id, { stdout: [] });
+    jobs.set(options.req_id, { stdout: [], stderr: [] });
     try {
       db.read();
       db.get("runs")

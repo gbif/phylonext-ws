@@ -43,8 +43,7 @@ async function getFromToken(auth) {
         return {...response?.body, token: response?.headers?.token || ''};
 
     } catch (error) {
-        console.log(error)
-       // console.log(error)
+        // console.log(error)
         throw error;  
     }
     
