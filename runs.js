@@ -50,7 +50,8 @@ const FILE_MAPPINGS = {
   terrestrial: "Land_Buffered_025_dgr.RData",
   rmcountrycentroids: "CC_CountryCentroids_buf_1000m.RData",
   rmcountrycapitals: "CC_Capitals_buf_10000m.RData",
-  rmurban: "CC_Urban.RData"
+  rmurban: "CC_Urban.RData",
+  wgsrpd: "WGSRPD.RData"
 }
 
 const zipRun = (runid) => {
