@@ -16,7 +16,7 @@ const ALLOWED_PARAMS = [
   "phylabels",
   "taxgroup",
   "phylum",
-  "class",
+  "classis",
   "order",
   "family",
   "genus",
