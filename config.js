@@ -40,7 +40,7 @@ const config = {
     DB_LOCATION : '/Users/thomas/phylonext_data/db.json'
   }, */
   production: {
-    INPUT_PATH: `/mnt/auto/scratch/mblissett/cloud-data/2023-03-01/occurrence.parquet`,  // path to the parquet data
+    INPUT_PATH: `/mnt/auto/scratch/mblissett/cloud-data/latest/occurrence.parquet`,  // path to the parquet data
     OUTPUT_PATH: '/opt/phylonext/runs', // working dir, where results will be stored and zipped
     TEST_DATA:    '/opt/phylonext/.nextflow/assets/vmikk/phylonext/test_data', 
     PIPELINE_DATA: '/opt/phylonext/.nextflow/assets/vmikk/phylonext/pipeline_data', 
