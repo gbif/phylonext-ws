@@ -30,7 +30,7 @@ const config = {
     OUTPUT_PATH: OUTPUT_PATH, // working dir, where results will be stored and zipped
     TEST_DATA:    PhyloNextTestDataDir, 
     PIPELINE_DATA: PhyloNextPipelineDataDir,
-    EXPRESS_PORT: 9000,
+    EXPRESS_PORT: 9000, 
     NEXTFLOW: '/Users/thomas/nextflow/nextflow', // where is the NextFlow executable
     GBIF_API: 'https://api.gbif-uat.org/v1/',
     GBIF_REGISTRY_API: 'https://registry-api.gbif-uat.org/',

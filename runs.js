@@ -57,7 +57,7 @@ const FILE_MAPPINGS = {
 const zipRun = (runid) => {
   return new Promise((resolve, reject) => {
     child_process.exec(
-      `zip -r ${config.OUTPUT_PATH}/${runid}/${runid}.zip *`,
+      `zip -r ${config.OUTPUT_PATH}/${runid}/${runid}.zip output/*`,
       {
         cwd: `${config.OUTPUT_PATH}/${runid}`,
       },
