@@ -26,6 +26,7 @@ const ALLOWED_PARAMS = [
   "lonmin",
   "lonmax",
   "minyear",
+  "maxyear",
   "noextinct",
   "roundcoords",
   "h3resolution",
@@ -43,7 +44,8 @@ const ALLOWED_PARAMS = [
   "rmcountrycapitals",
   "rmurban",
   "basisofrecordinclude",
-  "basisofrecordexclude"
+  "basisofrecordexclude",
+  "leaflet_var"
 ];
 
 const FILE_MAPPINGS = {
