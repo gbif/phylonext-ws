@@ -11,8 +11,6 @@ const storage = multer.diskStorage({
   //Specify the destination directory where the file needs to be saved
   destination: function (req, file, cb) {
     // console.log("Uploaded by "+ req?.user?.userName)
-    req.id = "test-multi";
-
       const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
       const workingDir = `${jobDir}/work`;
       const outputDir = `${jobDir}/output`;
