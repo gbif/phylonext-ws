@@ -13,6 +13,7 @@
     "form-data": "^4.0.0",
     "lodash": "^4.17.19",
     "lowdb": "^1.0.0",
+    "multer": "^1.4.5-lts.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.6",
     "stream-transform": "^1.0.8"

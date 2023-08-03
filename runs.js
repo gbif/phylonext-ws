@@ -6,6 +6,39 @@ const async = require("async");
 const db = require("./db");
 const fs = require("fs");
 const auth = require("./Auth/auth");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  //Specify the destination directory where the file needs to be saved
+  destination: function (req, file, cb) {
+    // console.log("Uploaded by "+ req?.user?.userName)
+    req.id = "test-multi";
+
+      const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
+      const workingDir = `${jobDir}/work`;
+      const outputDir = `${jobDir}/output`;
+
+      try {
+         fs.mkdirSync(jobDir);
+         fs.mkdirSync(workingDir);
+         fs.mkdirSync(outputDir);
+         cb(null, outputDir)
+
+
+      } catch (error) {
+        console.log("Failed to create output directory");
+        cb(error, null);
+      }
+    
+  
+},
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  },
+})
+
+const upload = multer({
+  storage: storage,
+})
 const spawn = child_process.spawn;
 const NEXTFLOW = config.NEXTFLOW;
 const jobs = new Map();
@@ -45,7 +78,9 @@ const ALLOWED_PARAMS = [
   "rmurban",
   "basisofrecordinclude",
   "basisofrecordexclude",
-  "leaflet_var"
+  "leaflet_var",
+  "randconstrain",
+  "polygon"
 ];
 
 const FILE_MAPPINGS = {
@@ -129,77 +164,73 @@ module.exports = (app) => {
       res.sendStatus(500);
     }
   });
-
-  app.post("/phylonext", auth.appendUser(), async function (req, res) {
+  app.post("/phylonext", auth.appendUser(), upload.fields([{ name: 'polygon', maxCount: 1 },{ name: 'randconstrain', maxCount: 1 }]), async function (req, res) {
     try {
       const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
       const workingDir = `${jobDir}/work`;
       const outputDir = `${jobDir}/output`;
-
-      const fileParams = Object.keys(FILE_MAPPINGS).reduce((acc, curr) => {
-        acc[curr] = _.get(req, `body.${curr}`) === true ? `${config.PIPELINE_DATA}/${FILE_MAPPINGS[curr]}` : false;
-        return acc;
-      }, {})
-
-      try {
-        await fs.promises.mkdir(jobDir);
-        await fs.promises.mkdir(workingDir);
-        await fs.promises.mkdir(outputDir);
-
-        if (req.body.phytree) {
-          try {
-            await fs.promises.writeFile(
-              `${outputDir}/input_tree.nwk`,
-              req.body.phytree,
-              "utf-8"
-            );
-            pushJob({
-              username: req?.user?.userName,
-              req_id: req.id,
-              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
-              res,
-            });
-          } catch (e) {
-            console.log("Failed to write input tree");
-            return res.status(500).send(e);
-          }
-        } else if (req.body.prepared_phytree) {
-          try {
-            await fs.promises.copyFile(
-              `${config.TEST_DATA}/phy_trees/${req.body.prepared_phytree}`,
-              `${outputDir}/input_tree.nwk`
-            );
-            pushJob({
-              username: req?.user?.userName,
-              req_id: req.id,
-              params: { ...req.body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
-              phylabels: "OTT",
-              res,
-            });
-          } catch (e) {
-            console.log(e);
-            console.log("Failed to write input tree");
-            return res.status(500).send(e);
-          }
-        } else {
-          pushJob({
-            username: req?.user?.userName,
-            req_id: req.id,
-            params: { ...req.body, ...fileParams },
-            res,
-          });
-        }
-      } catch (error) {
-        console.log("Failed to create output directory");
-        return res.status(500).send(error);
+      let body = JSON.parse(req.body.data);
+      if(_.get(req, 'files.polygon[0].path')){
+          body.polygon = req.files.polygon[0].path
       }
+      if(_.get(req, 'files.randconstrain[0].path')){
+          body.randconstrain = req.files.randconstrain[0].path
+      }
+        const fileParams = Object.keys(FILE_MAPPINGS).reduce((acc, curr) => {
+          acc[curr] = _.get(body, curr) === true ? `${config.PIPELINE_DATA}/${FILE_MAPPINGS[curr]}` : false;
+          return acc;
+        }, {})
+     
+          if (body.phytree) {
+            try {
+              await fs.promises.writeFile(
+                `${outputDir}/input_tree.nwk`,
+                body.phytree,
+                "utf-8"
+              );
+              pushJob({
+                username: req?.user?.userName,
+                req_id: req.id,
+                params: { ...body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
+                res,
+              });
+            } catch (e) {
+              console.log("Failed to write input tree");
+              return res.status(500).send(e);
+            }
+          } else if (body.prepared_phytree) {
+            try {
+              await fs.promises.copyFile(
+                `${config.TEST_DATA}/phy_trees/${body.prepared_phytree}`,
+                `${outputDir}/input_tree.nwk`
+              );
+              pushJob({
+                username: req?.user?.userName,
+                req_id: req.id,
+                params: { ...body, phytree: `${outputDir}/input_tree.nwk`, ...fileParams },
+                phylabels: "OTT",
+                res,
+              });
+            } catch (e) {
+              console.log(e);
+              console.log("Failed to write input tree");
+              return res.status(500).send(e);
+            }
+          } else {
+            pushJob({
+              username: req?.user?.userName,
+              req_id: req.id,
+              params: { ...body, ...fileParams },
+              res,
+            });
+          }
+        res.status(200).json({ jobid: req.id });
+      } catch (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+})
 
-      res.status(200).json({ jobid: req.id });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-  });
 
   const pushJob = (options, res) => {
     jobQueue.push(options, function (err) {
