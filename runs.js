@@ -175,11 +175,12 @@ module.exports = (app) => {
       const workingDir = `${jobDir}/work`;
       const outputDir = `${jobDir}/output`;
       let body = JSON.parse(req.body.data);
-      if(_.get(req, 'files.polygon[0].path')){
-          body.polygon = req.files.polygon[0].path
+      if(_.get(req, 'files.polygon[0].filename')){
+          body.polygon = `${outputDir}/${req.files.polygon[0].filename}`
+          console.log(req.files.polygon[0])
       }
-      if(_.get(req, 'files.randconstrain[0].path')){
-          body.randconstrain = req.files.randconstrain[0].path
+      if(_.get(req, 'files.randconstrain[0].filename')){
+          body.randconstrain = `${outputDir}/${req.files.randconstrain[0].filename}`;
       }
         const fileParams = Object.keys(FILE_MAPPINGS).reduce((acc, curr) => {
           acc[curr] = _.get(body, curr) === true ? `${config.PIPELINE_DATA}/${FILE_MAPPINGS[curr]}` : false;
