@@ -16,9 +16,16 @@ const storage = multer.diskStorage({
       const outputDir = `${jobDir}/output`;
 
       try {
-         fs.mkdirSync(jobDir);
-         fs.mkdirSync(workingDir);
-         fs.mkdirSync(outputDir);
+        if (!fs.existsSync(jobDir)){
+          fs.mkdirSync(jobDir, { recursive: true });
+        }
+        if (!fs.existsSync(workingDir)){
+          fs.mkdirSync(workingDir, { recursive: true });
+        }
+        if (!fs.existsSync(outputDir)){
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+         
          cb(null, outputDir)
 
 
