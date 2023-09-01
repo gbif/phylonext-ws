@@ -174,6 +174,9 @@ module.exports = (app) => {
       const jobDir = `${config.OUTPUT_PATH}/${req.id}`;
       const workingDir = `${jobDir}/work`;
       const outputDir = `${jobDir}/output`;
+      if (!fs.existsSync(outputDir)){
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
       let body = JSON.parse(req.body.data);
       if(_.get(req, 'files.polygon[0].filename')){
           body.polygon = `${outputDir}/${req.files.polygon[0].filename}`
